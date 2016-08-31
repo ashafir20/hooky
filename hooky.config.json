@@ -1,0 +1,7 @@
+{
+	"reposPath": "/Users/aviv/repos/",
+	"excludedRepos": [],
+	"hooksPath": "/usr/local/etc/git-hooks/",
+	"hooks": ["pre-push", "prepare-commit-msg"],
+	"setHooksIfMissing": true
+}
