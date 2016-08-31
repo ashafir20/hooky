@@ -1,18 +1,52 @@
 "use strict";
 var config = require('./hooky.config.json');
-var HookyService = require('./hooky.service');
-var fs = require('fs'),
-    path = require('path');
+var HookyFileService = require('./hooky.file.service');
+var path = require('path');
 
 module.exports = function HookyService() {
 
+    let hookyFileService = new HookyFileService();
+
     this.getHookyItems = () => {
-        return getDirectories(config.reposPath)
-            .filter(notExcludedRepo && repoValid);
+        return hookyFileService.getDirectories(config.reposPath)
+            .filter(notExcludedRepo)
+            .map(mapRepo);
     };
 
+    this.hookyRepo = (repo) => {
+        let missingHooks = getMissingHooks(repo);
+        missingHooks.forEach(hook => setHook(repo, hook));
+        return getMissingHooks(repo);
+    };
+
+    function setHook(repo, hook) {
+        let hooksPathInRepo = getHooksPath(repo);
+        let targetHooksPath = config.hooksPath;
+        hookyFileService.symlink(path.join(targetHooksPath, hook), path.join(hooksPathInRepo, hook));
+    }
+
+    function mapRepo(repo) {
+        if(repoValid(repo)) {
+            return {
+                title: repo,
+                valid: true,
+                missingHooks: [],
+            };
+        }
+
+        return {
+            title: repo,
+            valid: false,
+            missingHooks: getMissingHooks(repo),
+        };
+    }
+
+    function getMissingHooks(repo) {
+        return config.hooks.filter(hook => !hookyFileService.fsExistsSync(path.join(getHooksPath(repo), hook)));
+    }
+
     function notExcludedRepo(repo) {
-        return config.excludedRepos.indexOf(repo) > -1;
+        return config.excludedRepos.indexOf(repo) === -1;
     }
 
     function repoValid(repo) {
@@ -21,27 +55,18 @@ module.exports = function HookyService() {
 
     function repoIsAGitRepo(repo) {
         let gitPath = path.join(path.join(config.reposPath, repo), '.git');
-        return isDirSync(gitPath);
+        return hookyFileService.isDirSync(gitPath);
     }
 
-    function isDirSync(aPath) {
-        try {
-            return fs.statSync(aPath).isDirectory();
-        } catch (e) {
-            if (e.code === 'ENOENT') {
-                return false;
-            } else {
-                throw e;
-            }
-        }
-    }
+    var getHooksPath = function (repo) {
+        return path.join(path.join(config.reposPath, repo), '.git/hooks/');
+    };
 
     function repoHasValidHooks(repo) {
         try {
-            let hookPath = path.join(path.join(config.reposPath, repo), '.git/hooks/');
             return config.hooks
-                .map(hook => path.join(hookPath, hook))
-                .every(fsExistsSync);
+                .map(hook => path.join(getHooksPath(repo), hook))
+                .every(hookyFileService.fsExistsSync);
         } catch (e) {
             if (e.code === 'ENOENT') {
                 return false;
@@ -50,19 +75,4 @@ module.exports = function HookyService() {
             }
         }
     }
-
-    function fsExistsSync(file) {
-        try {
-            fs.accessSync(file);
-            return true;
-        } catch (e) {
-            return false;
-        }
-    }
-
-	function getDirectories(srcpath) {
-	  return fs.readdirSync(srcpath).filter(function(file) {
-	    return fs.statSync(path.join(srcpath, file)).isDirectory();
-	  });
-	}
 };

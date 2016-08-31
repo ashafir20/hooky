@@ -21,7 +21,46 @@
 				<false/>
 			</dict>
 		</array>
+		<key>318DB12A-01E4-418C-A7ED-171BB5E95B77</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>EC9E457A-19BD-4AB9-B503-DFCB49682FB6</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>68CE5774-E2A5-48D7-8AFF-E62BB15BDFCF</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F83099A1-08A3-480C-B591-8B8A7F34461E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>B06EFA00-BD47-48B9-BF13-A73052018A79</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>68CE5774-E2A5-48D7-8AFF-E62BB15BDFCF</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>EC9E457A-19BD-4AB9-B503-DFCB49682FB6</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -70,7 +109,7 @@
 			<key>config</key>
 			<dict>
 				<key>alfredfiltersresults</key>
-				<false/>
+				<true/>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -88,7 +127,7 @@
 				<key>runningsubtext</key>
 				<string></string>
 				<key>script</key>
-				<string>/usr/local/bin/node hooky.js "getHooks" "{query}"</string>
+				<string>/usr/local/bin/node hooky.js "getHooks"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -96,7 +135,7 @@
 				<key>subtext</key>
 				<string></string>
 				<key>title</key>
-				<string>Validates and sets your git hooks</string>
+				<string>Hooky Repo</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -112,6 +151,73 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>/usr/local/bin/node hooky.js "setupRepoHooks" "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>68CE5774-E2A5-48D7-8AFF-E62BB15BDFCF</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>hookyall</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>Hooky All Repos</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>318DB12A-01E4-418C-A7ED-171BB5E95B77</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>/usr/local/bin/node hooky.js "setupAllHooks"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>EC9E457A-19BD-4AB9-B503-DFCB49682FB6</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>2</integer>
 				<key>keyword</key>
@@ -119,7 +225,7 @@
 				<key>subtext</key>
 				<string></string>
 				<key>text</key>
-				<string>Setup hooky configurations</string>
+				<string>Hooky Config</string>
 				<key>withspace</key>
 				<false/>
 			</dict>
@@ -153,23 +259,44 @@
 		<key>0C3B2C52-852E-4029-929B-14CDD9739825</key>
 		<dict>
 			<key>xpos</key>
-			<integer>310</integer>
+			<integer>170</integer>
 			<key>ypos</key>
-			<integer>190</integer>
+			<integer>300</integer>
+		</dict>
+		<key>318DB12A-01E4-418C-A7ED-171BB5E95B77</key>
+		<dict>
+			<key>xpos</key>
+			<integer>140</integer>
+			<key>ypos</key>
+			<integer>160</integer>
 		</dict>
 		<key>68C3981D-FF55-4737-8444-C7A784EBD81A</key>
 		<dict>
 			<key>xpos</key>
-			<integer>690</integer>
+			<integer>520</integer>
 			<key>ypos</key>
-			<integer>190</integer>
+			<integer>330</integer>
+		</dict>
+		<key>68CE5774-E2A5-48D7-8AFF-E62BB15BDFCF</key>
+		<dict>
+			<key>xpos</key>
+			<integer>420</integer>
+			<key>ypos</key>
+			<integer>40</integer>
 		</dict>
 		<key>B06EFA00-BD47-48B9-BF13-A73052018A79</key>
 		<dict>
 			<key>xpos</key>
-			<integer>300</integer>
+			<integer>160</integer>
 			<key>ypos</key>
-			<real>20</real>
+			<integer>30</integer>
+		</dict>
+		<key>EC9E457A-19BD-4AB9-B503-DFCB49682FB6</key>
+		<dict>
+			<key>xpos</key>
+			<integer>410</integer>
+			<key>ypos</key>
+			<integer>170</integer>
 		</dict>
 		<key>F83099A1-08A3-480C-B591-8B8A7F34461E</key>
 		<dict>
@@ -180,6 +307,6 @@
 		</dict>
 	</dict>
 	<key>webaddress</key>
-	<string></string>
+	<string>https://github.com/ashafir20/hooky</string>
 </dict>
 </plist>
