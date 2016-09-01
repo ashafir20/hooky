@@ -25,22 +25,21 @@ var HookyService = require('./hooky.service');
     });
 
      actionHandler.onAction("setupRepoHooks", function(query) {
-         try {
-             let missingHooks = hookyService.hookyRepo(query);
-             if(missingHooks.length === 0) {
-                 console.log("All hooks set!");
-             } else {
-                 console.log("Problem setting hooks!");
-             }
-         } catch (ex) {
-             console.log("Problem setting hooks!");
+         let result = hookyService.hookyRepo(query);
+         if(result.missingHooks.length === 0) {
+             console.log(result.missingHooks.join(" ") + " hook/s were set!");
+         } else {
+             console.log("Problem setting hook/s: " + result.missingHooks.join(" "));
          }
-
-         workflow.feedback();
      });
 
-     actionHandler.onAction("setupAllHooks", function(query) {
-
+     actionHandler.onAction("setupAllHooks", function() {
+         let results = hookyService.hookyAll();
+         if(results.every(r => !r.error)) {
+             console.log("All hooks set!");
+         } else {
+             console.log("Problem setting hooks!");
+         }
      });
 
      function getItemSubtitle(repo) {

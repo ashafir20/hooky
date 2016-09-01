@@ -14,9 +14,22 @@ module.exports = function HookyService() {
     };
 
     this.hookyRepo = (repo) => {
-        let missingHooks = getMissingHooks(repo);
-        missingHooks.forEach(hook => setHook(repo, hook));
-        return getMissingHooks(repo);
+        try {
+            let missingHooks = getMissingHooks(repo);
+            missingHooks.forEach(hook => setHook(repo, hook));
+            return { repo, missingHooks: getMissingHooks(repo) }
+        } catch (ex) {
+            return { repo, error: ex, missingHooks: getMissingHooks(repo) }
+        }
+    };
+
+    this.hookyAll = () => {
+        let results = [];
+        hookyFileService.getDirectories(config.reposPath)
+            .forEach(repo => {
+                results.push(this.hookyRepo(repo))
+            });
+        return results;
     };
 
     function setHook(repo, hook) {
