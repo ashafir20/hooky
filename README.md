@@ -18,7 +18,7 @@ install the hooky.workflow file"
 
 ## Usage
 ### Quick start
-* Download default workflow from here: https://github.com/giangvo/alfred-workflow-nodejs/raw/master/AlfredNodejsWorkflow.alfredworkflow
+* Download default workflow from here: https://github.com/ashafir20/hooky/blob/master/Hooky.alfredworkflow?raw=true
 * Import it to Alfred
 * Type `hookyconfig` in alfred and set your configuration settings
 * Type `hooky` to get a list of repositories and their git hooks status
