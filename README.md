@@ -11,10 +11,8 @@ A small library which validates and sets your git hooks
 * Node 6 (I recommend installing the node version manager - nvm: https://github.com/creationix/nvm)
 
 ## Installation
+* import the `Hooky.alfredworkflow` file into alfred
 
-```shell
-install the hooky.workflow file"
-```
 
 ## Usage
 ### Quick start
