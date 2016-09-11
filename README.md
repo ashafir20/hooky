@@ -4,7 +4,7 @@ Hooky
 <img src="https://i.imgur.com/TmS25wM.png" alt="Drawing" style="width: 500px;"/>
 
 ## Overview
-A small library which validates and sets your git hooks
+An alfred workflow which validates and sets your git hooks
 
 ## Requirements
 * A folder with all your git hooks, ready to be linked from other git repositories
